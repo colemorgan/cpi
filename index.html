@@ -1,0 +1,86 @@
+<hmtl>
+
+    <body>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/hmac-sha256.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/components/enc-base64-min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+        <script>
+            function getVisitorID(div) {
+                vid = eventExample();
+                const msg = "Your visitor ID is " + "'" + vid + "'";
+                if (vid) {
+                    $('#' + div).html(msg);
+                } else {
+                    $('#' + div).html("Could not find a visitor ID");
+                }
+            }
+
+        </script>
+
+        <script>
+            function convertLead() {
+                var uname = $(".form-input #user-name").val();
+                var email = $(".form-input #user-email").val();
+                var userId = $(".form-input #user-id").val();
+
+                if (!(email) && !(userId)) {
+                    alert("You need to provide at least one of Email and/or UserID");
+                    return false;
+                }
+                if (updateUser(uname, email, userId)) {
+                    $("#createUser").html("Your lead should now be converted to a user or your user will be update (if it already exists)")
+                } else {
+                    $("#createUser").html("Have you copied the code into the JS editor?")
+                }
+            }
+
+        </script>
+
+        <script>
+            function signout() {
+                if (signOutExample()) {
+                    location.reload(false)
+                    $("#shutdown").html("Signing out of Intercom")
+                } else {
+                    $("#shutdown").html("Have you copied the code into the JS editor?")
+                }
+            }
+
+        </script>
+
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <div class="container">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-8">
+                        <form id="meta-form" class="form-inline" action="javascript:getVisitorID('visitor')">
+                            <button type="submit" class="btn btn-default">Get your Visitor ID</button>
+                        </form>
+
+
+                        <form id="user-form" class="form-inline" action="javascript:convertLead()">
+                            <div class="form-group">
+                                <div class='form-label'><label for="name">Name</label></div>
+                                <div class='form-input'><input type="text" class="form-control" id="user-name"></div>
+                            </div>
+                            <div class="form-group">
+                                <div class='form-label'><label for="email">Email</label></div>
+                                <div class='form-input'><input type="email" class="form-control" id="user-email"></div>
+                            </div>
+                            <button type="submit" class="btn btn-default">Sign Up</button>
+                        </form>
+                        <p id="createUser"></p>
+                        <button onclick="signout()" type="submit" class="btn btn-default">Sign Out</button>
+
+                        <p id="shutdown"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </body>
+
+    </html>
